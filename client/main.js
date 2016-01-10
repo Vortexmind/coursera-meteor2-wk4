@@ -17,6 +17,7 @@
     // the user they want to chat to has id equal to
     // the id sent in after /chat/...
     var otherUserId = this.params._id;
+    Session.set("otherUser",otherUserId);
 
     console.log("User " +Meteor.userId()+ " chatting to "+ otherUserId);
 
@@ -83,8 +84,9 @@
       var chat = Chats.findOne({_id:Session.get("chatId")});
       return chat.messages;
     },
-    other_user:function(){
-      return ""
+    other_user:function(user_id){
+      user = Meteor.users.findOne({_id:Session.get("otherUser")});
+      return user.profile.username;
     },
 
   })
