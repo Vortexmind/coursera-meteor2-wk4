@@ -25,20 +25,29 @@ if(Meteor.isClient){
                 {user2Id:Meteor.userId(), user1Id:otherUserId}
               ]};
     var chat = Chats.findOne(filter);
+    console.log("Search the chat returned +++ ");
+    console.log(chat);
     if (!chat){// no chat matching the filter - need to insert a new one
-      chatId = Chats.insert({
+      chat = {
         user1Id:Meteor.userId(),
-        user2Id:otherUserId
-      });
+        user2Id:otherUserId,
+      };
+      Meteor.call("addChat", chat, function(err,res){
+        if (!err) {
+          console.log("Addchat callback returned " + res);
+          Session.set("chatId",chatId);
+        } else {
+          console.log("Error inserting chat: " + err);
+        }
+      })
       console.log("Created a new chat");
     }
     else {// there is a chat going already - use that.
       console.log("Using existing chat: " + chat._id);
       chatId = chat._id;
-    }
-    if (chatId){// looking good, save the id to the session
       Session.set("chatId",chatId);
     }
+
     this.render("navbar", {to:"header"});
     this.render("chat_page", {to:"main"});
   });
@@ -120,7 +129,13 @@ if(Meteor.isClient){
       // put the messages array onto the chat object
       chat.messages = msgs;
       // update the chat object in the database.
-      Chats.update(chat._id, chat);
+      Meteor.call("updateChat",chat,function(err,res){
+        if (!err) {
+          console.log("updateChat callback returned" + res);
+        } else {
+          console.log("Error updating chat: " + err);
+        }
+      });
     }
   }
   })
