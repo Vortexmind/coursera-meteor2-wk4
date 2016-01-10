@@ -1,4 +1,6 @@
-if(Meteor.isClient){
+  Meteor.subscribe("chats");
+  Meteor.subscribe("chatUsers");
+
   // set up the main template the the router will use to build pages
   Router.configure({
     layoutTemplate: 'ApplicationLayout'
@@ -139,4 +141,3 @@ if(Meteor.isClient){
     }
   }
   })
-}

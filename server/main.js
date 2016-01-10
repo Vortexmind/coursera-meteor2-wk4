@@ -9,3 +9,16 @@ Meteor.startup(function () {
     }
   }
 });
+
+Meteor.publish("chats", function(){
+  return Chats.find({
+    $or:[
+    { user1Id : this.userId },
+    { user2Id : this.userId }
+    ]
+  });
+})
+
+Meteor.publish("chatUsers", function(){
+  return Meteor.users.find();
+})
