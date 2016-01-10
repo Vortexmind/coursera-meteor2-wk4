@@ -141,5 +141,9 @@
         }
       });
     }
-  }
+  },
+  'click .js-add-emoji':function(event){
+    var emojicode = $(event.target).attr('emojicode');
+    $('#chat-input').val($('#chat-input').val() + ' '+emojicode+' ');
+    }
   })

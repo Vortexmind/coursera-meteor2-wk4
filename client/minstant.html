@@ -81,7 +81,13 @@
     <div class="row">
 		<div class="col-md-12">
 			<form class="js-send-chat">
-			<input class="input" type="text" name="chat" placeholder="type a message here...">
+			<input class="input" type="textarea" name="chat" id="chat-input" placeholder="type a message here..." value="">
+      <img src="/packages/davidfrancisco_twemoji/img/grin.png" class="emoji js-add-emoji" emojicode=":grin:"/>
+      <img src="/packages/davidfrancisco_twemoji/img/wink.png" class="emoji js-add-emoji" emojicode=":wink:"/>
+      <img src="/packages/davidfrancisco_twemoji/img/cry.png" class="emoji js-add-emoji" emojicode=":cry:"/>
+      <img src="/packages/davidfrancisco_twemoji/img/thumbsup.png" class="emoji js-add-emoji" emojicode=":thumbsup:"/>
+      <img src="/packages/davidfrancisco_twemoji/img/thumbsdown.png" class="emoji js-add-emoji" emojicode=":thumbsdown:"/>
+      <a href="http://emoji.codes/" target="_blank">More...</a>
 			<button class="btn btn-default">send</button>
 		</form>
 		</div>
@@ -96,6 +102,6 @@
   {{else}}
   <span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> <strong>{{getUserName from}}</strong>
   {{/if}}
-   said {{_id}}: {{text}}
+   said {{_id}}: {{#emoji}} {{text}} {{/emoji}}
 	<br>
 </template>
